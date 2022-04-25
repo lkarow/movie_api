@@ -1,0 +1,18 @@
+URL: /
+Timestamp: Mon Apr 25 2022 20:43:34 GMT+0200 (Mitteleuropäische Sommerzeit)
+
+URL: /favicon.ico
+Timestamp: Mon Apr 25 2022 20:43:34 GMT+0200 (Mitteleuropäische Sommerzeit)
+
+URL: /index.html
+Timestamp: Mon Apr 25 2022 20:43:38 GMT+0200 (Mitteleuropäische Sommerzeit)
+
+URL: /favicon.ico
+Timestamp: Mon Apr 25 2022 20:43:38 GMT+0200 (Mitteleuropäische Sommerzeit)
+
+URL: /documentation.html
+Timestamp: Mon Apr 25 2022 20:43:48 GMT+0200 (Mitteleuropäische Sommerzeit)
+
+URL: /favicon.ico
+Timestamp: Mon Apr 25 2022 20:43:48 GMT+0200 (Mitteleuropäische Sommerzeit)
+
