@@ -1,12 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Documentation</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Documentation</h1>
     <p>This is the documentation file ...</p>
-</body>
+
+    <table>
+      <tr>
+        <th>Business Logic</th>
+        <th>URL</th>
+        <th>HTTP Method</th>
+        <th>Request body data format</th>
+        <th>Response body data format</th>
+      </tr>
+      <tr>
+        <td>Return a list of ALL movies to the user</td>
+        <td>/movies</td>
+        <td>GET</td>
+        <td>none</td>
+        <td>A JSON object holding data about all movies</td>
+      </tr>
+      <tr>
+        <td>
+          Return data (description, genre, director, image URL) about a single
+          movie by title to the user
+        </td>
+        <td>/movies/[movie title]</td>
+        <td>GET</td>
+        <td>none</td>
+        <td>
+          A JSON object holding data about a movie containing description,
+          genre, director, image URL
+          <pre>
+           <code>
+              {
+                title: "abc",
+                director: "abc",
+                description: "abc"
+              }
+            </code>
+          </pre>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Return data about a genre (description) by name/title (e.g.,
+          “Thriller”)
+        </td>
+        <td>/genres/[genre title]</td>
+        <td>GET</td>
+        <td>none</td>
+        <td>
+          A JSON object holding data about a genre
+          <pre>
+            <code>
+              {
+                genre: "abc",
+                description: "abc"
+              }
+            </code>
+          </pre>
+        </td>
+      </tr>
+      <tr>
+        <td>Return data about a director by name</td>
+        <td>/directors/[name]</td>
+        <td>GET</td>
+        <td>none</td>
+        <td>
+          A JSON object holding data about a director including bio, birth year,
+          death year
+          <pre>
+            <code>
+               {
+                 director: "abc",
+                 bio: "abc",
+                 birthyear: 1955,
+                 deathyear: 2012
+               }
+             </code>
+           </pre>
+        </td>
+      </tr>
+      <tr>
+        <td>Allow new users to register</td>
+        <td>/users</td>
+        <td>POST</td>
+        <td>
+          A JSON object holding data about the new user including username and
+          mail. Format:
+          <pre>
+            <code>
+            {
+              name: "abc",
+              mail: "mail@example.com"
+            }
+            </code>
+          </pre>
+        </td>
+        <td>
+          A JSON object holding data about the new user including ID, username
+          and mail. Format:
+          <pre>
+            <code>
+            {
+              id: 123,
+              name: "abc",
+              mail: "mail@example.com"
+            }
+            </code>
+          </pre>
+        </td>
+      </tr>
+      <tr>
+        <td>Allow users to update their user info (username)</td>
+        <td>/users/[ID]/[new username]</td>
+        <td>PUT</td>
+        <td>none</td>
+        <td>
+          A text message indicating that the username was successfully changed
+        </td>
+      </tr>
+      <tr>
+        <td>Allow users to add a movie to their list of favorites</td>
+        <td>/users/[ID]/movies/[movie title]</td>
+        <td>PUT</td>
+        <td>none</td>
+        <td>
+          A text message indicating that the movie was added to their list of
+          favorites movies
+        </td>
+      </tr>
+      <tr>
+        <td>Allow users to remove a movie from their list of favorites</td>
+        <td>/users/[ID]/movies/[movie title]</td>
+        <td>DELETE</td>
+        <td>none</td>
+        <td>
+          A text message indicating that the movie was removed from their list
+          of favorites movies
+        </td>
+      </tr>
+      <tr>
+        <td>Allow existing users to deregister</td>
+        <td>/users/[ID]</td>
+        <td>DELETE</td>
+        <td>none</td>
+        <td>A text message indicating that the user email was removed</td>
+      </tr>
+    </table>
+  </body>
 </html>
