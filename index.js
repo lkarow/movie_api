@@ -20,33 +20,74 @@ app.use(morgan('common', { stream: accessLogStream }));
 let topMovies = [
   {
     title: 'Kikujiros Summer',
+    director: 'Takeshi Kitano',
+    genre: 'Drama',
+    description:
+      'A young, naive boy sets out alone on the road to find his wayward mother. Soon he finds an unlikely protector in a crotchety man and the two have a series of unexpected adventures along the way.',
+    img: 'https://upload.wikimedia.org/wikipedia/en/d/de/Kikujiro-1999-poster.jpg',
   },
   {
     title: 'Hana bi',
+    director: '',
+    genre: '',
+    description: '',
+    img: '',
   },
   {
     title: 'Tampopo',
+    director: '',
+    genre: '',
+    description: '',
+    img: '',
   },
   {
     title: 'Departures',
+    director: '',
+    genre: '',
+    description: '',
+    img: '',
   },
   {
     title: 'Spirited Away',
+    director: '',
+    genre: '',
+    description: '',
+    img: '',
   },
   {
     title: 'Piano Forest',
+    director: '',
+    genre: '',
+    description: '',
+    img: '',
   },
   {
     title: 'Our Little Sister',
+    director: '',
+    genre: '',
+    description: '',
+    img: '',
   },
   {
     title: 'Shoplifters',
+    director: '',
+    genre: '',
+    description: '',
+    img: '',
   },
   {
     title: 'My Neighbor Totoro',
+    director: '',
+    genre: '',
+    description: '',
+    img: '',
   },
   {
     title: 'Ghost in the Shell',
+    director: '',
+    genre: '',
+    description: '',
+    img: '',
   },
 ];
 
@@ -65,7 +106,11 @@ app.get('/movies', (req, res) => {
 
 // get data about a single movie
 app.get('/movies/:movieTitle', (req, res) => {
-  res.send('Successful GET request returning data about SINGLE MOVIE');
+  res.json(
+    topMovies.find((movie) => {
+      return movie.title === req.params.movieTitle;
+    })
+  );
 });
 
 // get data about genre
