@@ -27,7 +27,7 @@
       <tr>
         <td>
           Return data (description, genre, director, image URL) about a single
-          movie by title to the user
+          movie (e.g. "Departures") by title to the user
         </td>
         <td>/movies/[movie title]</td>
         <td>GET</td>
@@ -38,11 +38,20 @@
           <pre>
            <code>
               {
-                title: "abc",
-                director: "abc",
-                genre: "abc",
-                description: "abc",
-                img: "https://..."
+                Title: "...",
+                Description: "...",
+                Genre: {
+                  Name: "...",
+                  Description: "..."
+                },
+                Director: {
+                  Name: "...",
+                  Bio: "...",
+                  Birth: "...",
+                  Death: "..."
+                },
+                ImagePath: "https://...",
+                Featured: boolean
               }
             </code>
           </pre>
@@ -50,8 +59,7 @@
       </tr>
       <tr>
         <td>
-          Return data about a genre (description) by name/title (e.g.,
-          “Thriller”)
+          Return data about a genre (description) by name/title (e.g. "Drama")
         </td>
         <td>/genres/[genre title]</td>
         <td>GET</td>
@@ -61,15 +69,15 @@
           <pre>
             <code>
               {
-                genre: "abc",
-                description: "abc"
+                Name: "...",
+                Description: "..."
               }
             </code>
           </pre>
         </td>
       </tr>
       <tr>
-        <td>Return data about a director by name</td>
+        <td>Return data about a director by name (e.g. "Takeshi Kitano")</td>
         <td>/directors/[name]</td>
         <td>GET</td>
         <td>none</td>
@@ -79,10 +87,10 @@
           <pre>
             <code>
                {
-                 director: "abc",
-                 bio: "abc",
-                 birthyear: 1955,
-                 deathyear: 2012
+                Name: "...",
+                Bio: "...",
+                Birth: "YYYY-MM-DD",
+                Death: "YYYY-MM-DD"
                }
              </code>
            </pre>
@@ -98,8 +106,11 @@
           <pre>
             <code>
             {
-              name: "abc",
-              mail: "mail@example.com"
+              Username: "...",
+              Password: "...",
+              Email: "mail@example.com",
+              Birthday: "YYYY-MM-DD",
+              FavoriteMovies: [...]
             }
             </code>
           </pre>
@@ -110,9 +121,12 @@
           <pre>
             <code>
             {
-              id: 123,
-              name: "abc",
-              mail: "mail@example.com"
+              ObjectId: "...",
+              Username: "...",
+              Password: "...",
+              Email: "mail@example.com",
+              Birthday: "YYYY-MM-DD",
+              FavoriteMovies: [...]
             }
             </code>
           </pre>
