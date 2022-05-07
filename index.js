@@ -1,3 +1,14 @@
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 const express = require('express'),
   morgan = require('morgan'),
   fs = require('fs'),
@@ -17,144 +28,188 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
 // logger setup
 app.use(morgan('common', { stream: accessLogStream }));
 
-let topMovies = [
-  {
-    title: 'Kikujiros Summer',
-    director: 'Takeshi Kitano',
-    genre: 'Drama',
-    description:
-      'A young, naive boy sets out alone on the road to find his wayward mother. Soon he finds an unlikely protector in a crotchety man and the two have a series of unexpected adventures along the way.',
-    img: 'https://upload.wikimedia.org/wikipedia/en/d/de/Kikujiro-1999-poster.jpg',
-  },
-  {
-    title: 'Hana bi',
-    director: '',
-    genre: '',
-    description: '',
-    img: '',
-  },
-  {
-    title: 'Tampopo',
-    director: '',
-    genre: '',
-    description: '',
-    img: '',
-  },
-  {
-    title: 'Departures',
-    director: '',
-    genre: '',
-    description: '',
-    img: '',
-  },
-  {
-    title: 'Spirited Away',
-    director: '',
-    genre: '',
-    description: '',
-    img: '',
-  },
-  {
-    title: 'Piano Forest',
-    director: '',
-    genre: '',
-    description: '',
-    img: '',
-  },
-  {
-    title: 'Our Little Sister',
-    director: '',
-    genre: '',
-    description: '',
-    img: '',
-  },
-  {
-    title: 'Shoplifters',
-    director: '',
-    genre: '',
-    description: '',
-    img: '',
-  },
-  {
-    title: 'My Neighbor Totoro',
-    director: '',
-    genre: '',
-    description: '',
-    img: '',
-  },
-  {
-    title: 'Ghost in the Shell',
-    director: '',
-    genre: '',
-    description: '',
-    img: '',
-  },
-];
-
-let users = [
-  {
-    id: 1,
-    name: 'test name',
-    mail: 'test mail',
-  },
-];
-
 // get all movies
 app.get('/movies', (req, res) => {
-  res.json(topMovies);
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`Error: ${err}`);
+    });
 });
 
 // get data about a single movie
-app.get('/movies/:movieTitle', (req, res) => {
-  res.json(
-    topMovies.find((movie) => {
-      return movie.title === req.params.movieTitle;
+app.get('/movies/:MovieTitle', (req, res) => {
+  Movies.findOne({ Title: req.params.MovieTitle })
+    .then((movie) => {
+      res.status(201).json(movie);
     })
-  );
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`Error: ${err}`);
+    });
 });
 
 // get data about genre
-app.get('/genres/:genreTitle', (req, res) => {
-  res.send('Successful GET request returning data about a GENRE');
+app.get('/genres/:GenreName', (req, res) => {
+  Movies.findOne({ 'Genre.Name': req.params.GenreName })
+    .then((movie) => {
+      if (movie) {
+        res.status(201).json(movie.Genre);
+      } else {
+        res.status(400).send(`Genre was not found.`);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`Error: ${err}`);
+    });
 });
 
 // get data about director
-app.get('/directors/:name', (req, res) => {
-  res.send('Successfull GET request returning data about DIRECTOR');
+app.get('/directors/:DirectorName', (req, res) => {
+  Movies.findOne({ 'Director.Name': req.params.DirectorName })
+    .then((movie) => {
+      if (movie) {
+        res.status(201).json(movie.Director);
+      } else {
+        res.status(400).send(`Director was not found.`);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`Error: ${err}`);
+    });
+});
+
+// get one user by username
+app.get('/users/:Username', (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+    .then((user) => {
+      res.status(201).json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`Error: ${err}`);
+    });
 });
 
 // add new user
+/* we'll expect JSON in this format
+{
+  ID: Integer,
+  Username: String, 
+  Password: String, 
+  Email: String,
+  Birthday: Date
+}
+*/
 app.post('/users', (req, res) => {
-  let newUser = req.body;
-
-  if (!newUser.name) {
-    const message = 'Missing name in request body';
-    res.status(400).send(message);
-  } else {
-    newUser.id = uuid.v4();
-    users.push(newUser);
-    res.status(201).send(newUser);
-  }
+  Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(`${req.body.Username} already exists.`);
+      } else {
+        Users.create({
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
+        })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((err) => {
+            console.error(err);
+            res.status(500).send(`Error: ${err}`);
+          });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.statuts(500).send(`Error: ${err}`);
+    });
 });
 
-// change user name
-app.put('/users/:id/:newUserName', (req, res) => {
-  res.send('Successfull PUT request CHANGING user name');
+// update user's info by username
+/* we'll expect JSON in the format
+{
+  Username: String, (required)
+  Password: String, (required)
+  Email: String, (required)
+  Birthday: Date
+}
+*/
+app.put('/users/:Username', (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $set: {
+        Username: req.body.Username,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday,
+      },
+    },
+    { new: true } // line makes sure that the update document is returned
+  )
+    .then((updateUser) => {
+      res.status(201).json(updateUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`Error: ${err}`);
+    });
 });
 
 // add movie to favorites list of user
-app.put('/users/:id/movies/:movieTitle', (req, res) => {
-  res.send('Successfull PUT request ADDING MOVIE to favorite list');
+app.put('/users/:Username/movies/:MovieId', (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    { $addToSet: { FavoriteMovies: req.params.MovieId } },
+    { new: true } // line makes sure that the update document is returned
+  )
+    .then((updateUser) => {
+      res.status(201).json(updateUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`Error: ${err}`);
+    });
 });
 
 // delete movie from favorite list of user
-app.delete('/users/:id/movies/:movieTitle', (req, res) => {
-  res.send('Successfull DELETE request REMOVING MOVIE to favorite list');
+app.delete('/users/:Username/movies/:MovieId', (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    { $pull: { FavoriteMovies: req.params.MovieId } },
+    { new: true } // line makes sure that the update document is returned
+  )
+    .then((updateUser) => {
+      res.status(201).json(updateUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`Error: ${err}`);
+    });
 });
 
-// delete user
-app.delete('/users/:id/', (req, res) => {
-  res.send('Successful DELETE request REMOVING USER');
+// delete user by username
+app.delete('/users/:Username', (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(`${req.params.Username} was not found.`);
+      } else {
+        res.status(200).send(`${req.params.Username} was deleted.`);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send(`Error: ${err}`);
+    });
 });
 
 app.get('/', (req, res) => {
