@@ -26,8 +26,8 @@
       </tr>
       <tr>
         <td>
-          Return data (description, genre, director, image URL) about a single
-          movie (e.g. "Departures") by title to the user
+          Return data (title, description, genre, director, image URL) about a single
+          movie (e.g. "Departures") by title
         </td>
         <td>/movies/[movie title]</td>
         <td>GET</td>
@@ -38,20 +38,20 @@
           <pre>
            <code>
               {
-                Title: "...",
-                Description: "...",
+                Title: String, (required)
+                Description: String, (required)
                 Genre: {
-                  Name: "...",
-                  Description: "..."
+                Name: String,
+                Description: String
                 },
                 Director: {
-                  Name: "...",
-                  Bio: "...",
-                  Birth: "...",
-                  Death: "..."
+                  Name: String,
+                  Bio: String,
+                  Birth: Date, ("YYYY-MM-DD")
+                  Death: Date ("YYYY-MM-DD")
                 },
-                ImagePath: "https://...",
-                Featured: boolean
+                ImagePath: String,
+                Featured: Boolean
               }
             </code>
           </pre>
@@ -59,9 +59,9 @@
       </tr>
       <tr>
         <td>
-          Return data about a genre (description) by name/title (e.g. "Drama")
+          Return data about a genre (description) by name (e.g. "Drama")
         </td>
-        <td>/genres/[genre title]</td>
+        <td>/genres/[genre name]</td>
         <td>GET</td>
         <td>none</td>
         <td>
@@ -69,8 +69,8 @@
           <pre>
             <code>
               {
-                Name: "...",
-                Description: "..."
+                Name: String,
+                Description: String
               }
             </code>
           </pre>
@@ -87,10 +87,10 @@
           <pre>
             <code>
                {
-                Name: "...",
-                Bio: "...",
-                Birth: "YYYY-MM-DD",
-                Death: "YYYY-MM-DD"
+                Name: String,
+                Bio: String,
+                Birth: Date, ("YYYY-MM-DD")
+                Death: Date ("YYYY-MM-DD")
                }
              </code>
            </pre>
@@ -106,44 +106,56 @@
           <pre>
             <code>
             {
-              Username: "...",
-              Password: "...",
-              Email: "mail@example.com",
-              Birthday: "YYYY-MM-DD",
-              FavoriteMovies: [...]
+              Username: String, (required)
+              Password: String, (required)
+              Email: String, (required)
+              Birthday: Date, ("YYYY-MM-DD")
+              FavoriteMovies: Array
             }
             </code>
           </pre>
         </td>
         <td>
           A JSON object holding data about the new user including ID, username
-          and mail. Format:
+          and mail.
           <pre>
             <code>
             {
-              ObjectId: "...",
-              Username: "...",
-              Password: "...",
-              Email: "mail@example.com",
-              Birthday: "YYYY-MM-DD",
-              FavoriteMovies: [...]
+              ObjectId: String,
+              Username: String,
+              Password: String,
+              Email: String,
+              Birthday: Date, ("YYYY-MM-DD")
+              FavoriteMovies: Array
             }
             </code>
           </pre>
         </td>
       </tr>
       <tr>
-        <td>Allow users to update their user info (username)</td>
-        <td>/users/[ID]/[new username]</td>
+        <td>Allow users to update their user info</td>
+        <td>/users/[username]</td>
         <td>PUT</td>
-        <td>none</td>
+        <td>
+          A JSON object with the new user infos.
+          <pre>
+            <code>
+            {
+              Username: String, (required)
+              Password: String, (required)
+              Email: String, (required)
+              Birthday: Date ("YYYY-MM-DD")
+            }
+            </code>
+          </pre>
+        </td>
         <td>
           A text message indicating that the username was successfully changed
         </td>
       </tr>
       <tr>
         <td>Allow users to add a movie to their list of favorites</td>
-        <td>/users/[ID]/movies/[movie title]</td>
+        <td>/users/[username]/movies/[movie title]</td>
         <td>PUT</td>
         <td>none</td>
         <td>
@@ -153,7 +165,7 @@
       </tr>
       <tr>
         <td>Allow users to remove a movie from their list of favorites</td>
-        <td>/users/[ID]/movies/[movie title]</td>
+        <td>/users/[username]/movies/[movie title]</td>
         <td>DELETE</td>
         <td>none</td>
         <td>
@@ -163,7 +175,7 @@
       </tr>
       <tr>
         <td>Allow existing users to deregister</td>
-        <td>/users/[ID]</td>
+        <td>/users/[username]</td>
         <td>DELETE</td>
         <td>none</td>
         <td>A text message indicating that the user email was removed</td>
