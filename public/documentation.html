@@ -150,7 +150,19 @@
           </pre>
         </td>
         <td>
-          A text message indicating that the username was successfully changed
+          A JSON object holding the data about the new user.
+          <pre>
+            <code>
+            {
+              ObjectId: String,
+              Username: String,
+              Password: String,
+              Email: String,
+              Birthday: Date, ("YYYY-MM-DD")
+              FavoriteMovies: Array
+            }
+            </code>
+          </pre>
         </td>
       </tr>
       <tr>
@@ -159,8 +171,19 @@
         <td>PUT</td>
         <td>none</td>
         <td>
-          A text message indicating that the movie was added to their list of
-          favorites movies
+          A JSON object holding the new data about the user.
+          <pre>
+            <code>
+            {
+              ObjectId: String,
+              Username: String,
+              Password: String,
+              Email: String,
+              Birthday: Date, ("YYYY-MM-DD")
+              FavoriteMovies: Array
+            }
+            </code>
+          </pre>
         </td>
       </tr>
       <tr>
@@ -169,8 +192,19 @@
         <td>DELETE</td>
         <td>none</td>
         <td>
-          A text message indicating that the movie was removed from their list
-          of favorites movies
+          A JSON object holding the data about the user without the deleted movie.
+          <pre>
+            <code>
+            {
+              ObjectId: String,
+              Username: String,
+              Password: String,
+              Email: String,
+              Birthday: Date, ("YYYY-MM-DD")
+              FavoriteMovies: Array
+            }
+            </code>
+          </pre>
         </td>
       </tr>
       <tr>
