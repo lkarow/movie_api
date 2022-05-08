@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>Documentation</h1>
-    <p>This is the documentation file ...</p>
+    <p>This is the documentation for the movie api:</p>
 
     <table>
       <tr>
@@ -118,6 +118,27 @@
         <td>
           A JSON object holding data about the new user including ID, username
           and mail.
+          <pre>
+            <code>
+            {
+              ObjectId: String,
+              Username: String,
+              Password: String,
+              Email: String,
+              Birthday: Date, ("YYYY-MM-DD")
+              FavoriteMovies: Array
+            }
+            </code>
+          </pre>
+        </td>
+      </tr>
+      <tr>
+        <td>Return data about a user</td>
+        <td>/users/[username]</td>
+        <td>GET</td>
+        <td>none</td>
+        <td>
+          A JSON object holding the data about the user.
           <pre>
             <code>
             {
