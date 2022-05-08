@@ -87,6 +87,7 @@ app.get('/directors/:DirectorName', (req, res) => {
 // get one user by username
 app.get('/users/:Username', (req, res) => {
   Users.findOne({ Username: req.params.Username })
+    .populate('FavoriteMovies', 'Title')
     .then((user) => {
       res.status(201).json(user);
     })
@@ -100,9 +101,9 @@ app.get('/users/:Username', (req, res) => {
 /* we'll expect JSON in this format
 {
   ID: Integer,
-  Username: String, 
-  Password: String, 
-  Email: String,
+  Username: String, (required)
+  Password: String, (required)
+  Email: String, (required)
   Birthday: Date
 }
 */
@@ -171,6 +172,7 @@ app.put('/users/:Username/movies/:MovieId', (req, res) => {
     { $addToSet: { FavoriteMovies: req.params.MovieId } },
     { new: true } // line makes sure that the update document is returned
   )
+    .populate('FavoriteMovies', 'Title')
     .then((updateUser) => {
       res.status(201).json(updateUser);
     })
@@ -187,6 +189,7 @@ app.delete('/users/:Username/movies/:MovieId', (req, res) => {
     { $pull: { FavoriteMovies: req.params.MovieId } },
     { new: true } // line makes sure that the update document is returned
   )
+    .populate('FavoriteMovies', 'Title')
     .then((updateUser) => {
       res.status(201).json(updateUser);
     })
