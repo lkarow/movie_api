@@ -27,6 +27,8 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
+const { check, validationResult } = require('express-validator');
+
 // create a write stream in log.txt
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
   flags: 'a',
@@ -134,32 +136,52 @@ app.get(
   Birthday: Date
 }
 */
-app.post('/users', (req, res) => {
-  Users.findOne({ Username: req.body.Username })
-    .then((user) => {
-      if (user) {
-        return res.status(400).send(`${req.body.Username} already exists.`);
-      } else {
-        Users.create({
-          Username: req.body.Username,
-          Password: req.body.Password,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday,
-        })
-          .then((user) => {
-            res.status(201).json(user);
+app.post(
+  '/users',
+  // validation logic here for request
+  [
+    check('Username', 'Username is required').isLength({ min: 5 }),
+    check(
+      'Username',
+      'Username contains non alphanumeric characters - not allowed.'
+    ).isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail(),
+  ],
+  (req, res) => {
+    // check validation object for errors
+    let errors = validationREsult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    Users.findOne({ Username: req.body.Username })
+      .then((user) => {
+        if (user) {
+          return res.status(400).send(`${req.body.Username} already exists.`);
+        } else {
+          Users.create({
+            Username: req.body.Username,
+            Password: hashedPassword,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday,
           })
-          .catch((err) => {
-            console.error(err);
-            res.status(500).send(`Error: ${err}`);
-          });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.statuts(500).send(`Error: ${err}`);
-    });
-});
+            .then((user) => {
+              res.status(201).json(user);
+            })
+            .catch((err) => {
+              console.error(err);
+              res.status(500).send(`Error: ${err}`);
+            });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.statuts(500).send(`Error: ${err}`);
+      });
+  }
+);
 
 // update user's info by username
 /* we'll expect JSON in the format
