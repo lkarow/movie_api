@@ -19,5 +19,8 @@ The REST API and database are built using JavaScript, Node.js, Express, and Mong
 - Mongoose
 - [body-parser](https://github.com/expressjs/body-parser)
 - [Morgan](https://github.com/expressjs/morgan)
-- Passport
+- [Passport](https://www.passportjs.org/)
 - JsonWebToken
+- [CORS](https://github.com/expressjs/cors)
+- [bcrypt](https://github.com/kelektiv/node.bcrypt.js)
+- [express validator](https://express-validator.github.io/docs/)
