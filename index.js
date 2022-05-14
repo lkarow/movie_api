@@ -286,7 +286,7 @@ app.delete(
   }
 );
 
-app.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/', (req, res) => {
   res.send('Welcome to the movie club!');
 });
 
