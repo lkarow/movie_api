@@ -19,8 +19,7 @@ const express = require('express'),
   morgan = require('morgan'),
   fs = require('fs'),
   path = require('path'),
-  bodyParser = require('body-parser'),
-  uuid = require('uuid');
+  bodyParser = require('body-parser');
 
 const app = express();
 
