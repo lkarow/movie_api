@@ -27,9 +27,9 @@
       <tr>
         <td>
           Return data (title, description, genre, director, image URL) about a single
-          movie (e.g. "Departures") by MovieID
+          movie (e.g. "Departures") by movie ID
         </td>
-        <td>/movies/[MovieID]</td>
+        <td>/movies/[movie ID]</td>
         <td>GET</td>
         <td>none</td>
         <td>
@@ -188,7 +188,7 @@
       </tr>
       <tr>
         <td>Allow users to add a movie to their list of favorites</td>
-        <td>/users/[username]/movies/[movie title]</td>
+        <td>/users/[username]/movies/[movie ID]</td>
         <td>PUT</td>
         <td>none</td>
         <td>
@@ -209,7 +209,7 @@
       </tr>
       <tr>
         <td>Allow users to remove a movie from their list of favorites</td>
-        <td>/users/[username]/movies/[movie title]</td>
+        <td>/users/[username]/movies/[movie ID]</td>
         <td>DELETE</td>
         <td>none</td>
         <td>
