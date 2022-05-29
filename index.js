@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-let auth = require('./auth')(app);
+require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
@@ -299,6 +299,4 @@ app.use((err, req, res, next) => {
 
 // listen for requests
 const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0.', () => {
-  console.log('Listening on Port ' + port);
-});
+app.listen(port, () => console.log('Listening on Port ' + port));
