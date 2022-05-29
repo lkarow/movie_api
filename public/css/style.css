@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
+th {
+  font-size: larger;
+}
+
+table tr:nth-child(odd) td{
+  background-color: #e6f3ff;
+}
+
+table tr:nth-child(even) td{
+  background-color: #cce6ff;
+}
+
+td {
+  padding: 10px;
+}
+
+pre code {
+  background-color: #fff;
+  border: 1px solid #676c70;
+  border-radius: 5px;
+  display: block;
+  padding: 5px;
+}
+
+code {
+  font-family: 'Source Code Pro', sans-serif;
+}

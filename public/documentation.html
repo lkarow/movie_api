@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
     <title>Documentation</title>
   </head>
   <body>
@@ -36,23 +40,23 @@
           A JSON object holding data about a movie containing description,
           genre, director, image URL
           <pre>
-           <code>
-              {
-                Title: String, (required)
-                Description: String, (required)
-                Genre: {
+            <code>
+            {
+              Title: String, (required)
+              Description: String, (required)
+              Genre: {
+              Name: String,
+              Description: String
+              },
+              Director: {
                 Name: String,
-                Description: String
-                },
-                Director: {
-                  Name: String,
-                  Bio: String,
-                  Birth: Date, ("YYYY-MM-DD")
-                  Death: Date ("YYYY-MM-DD")
-                },
-                ImagePath: String,
-                Featured: Boolean
-              }
+                Bio: String,
+                Birth: Date, ("YYYY-MM-DD")
+                Death: Date ("YYYY-MM-DD")
+              },
+              ImagePath: String,
+              Featured: Boolean
+            }
             </code>
           </pre>
         </td>
@@ -68,10 +72,10 @@
           A JSON object holding data about a genre
           <pre>
             <code>
-              {
-                Name: String,
-                Description: String
-              }
+            {
+              Name: String,
+              Description: String
+            }
             </code>
           </pre>
         </td>
@@ -86,13 +90,13 @@
           death year
           <pre>
             <code>
-               {
-                Name: String,
-                Bio: String,
-                Birth: Date, ("YYYY-MM-DD")
-                Death: Date ("YYYY-MM-DD")
-               }
-             </code>
+            {
+            Name: String,
+            Bio: String,
+            Birth: Date, ("YYYY-MM-DD")
+            Death: Date ("YYYY-MM-DD")
+            }
+            </code>
            </pre>
         </td>
       </tr>
