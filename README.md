@@ -257,13 +257,3 @@ The endpoints of the API can be accessed with HTTP methods (POST, GET, PUT, and 
 <strong>Request body data format:</strong> none
 
 <strong>Response body data format:</strong> Text message indicating that the user email was removed
-
-### Get data of all movies
-
-<strong>Endpoint:</strong> `/movies`
-
-<strong>HTTP method:</strong> GET
-
-<strong>Request body data format:</strong> none
-
-<strong>Response body data format:</strong> JSON object holding data about all movies
