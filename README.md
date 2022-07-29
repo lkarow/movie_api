@@ -115,7 +115,7 @@ The endpoints of the API can be accessed with HTTP methods (POST, GET, PUT, and 
 
 <strong>HTTP method:</strong> POST
 
-<strong>Request body data format:</strong> JSON object holding data about the new user including username and mail.
+<strong>Request body data format:</strong> JSON object holding data about the new user including username and mail
 
 <strong>Format:</strong>
 
