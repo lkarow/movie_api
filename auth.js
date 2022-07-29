@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken'),
 require('./passport');
 
 /**
- * Generates JSON Web Token which expires in 7b days
+ * Generates JSON Web Token which expires in 7 days
  * @param {object} user user data
  * @returns object with user data and JWT
  */
