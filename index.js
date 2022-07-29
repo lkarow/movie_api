@@ -46,7 +46,9 @@ app.use(morgan('common', { stream: accessLogStream }));
  * Get data of all movies
  * Endpoint: /movies
  * HTTP method: GET
+ * @name getAllMovies
  * @returns JSON object holding data of all movies
+ * @requires passport
  */
 app.get(
   '/movies',
@@ -67,7 +69,9 @@ app.get(
  * Get data of a single movie
  * Endpoint: /movies/[movie ID]
  * HTTP method: GET
+ * @name getMovie
  * @returns JSON object holding data about a movie containing description, genre, director, image URL
+ * @requires passport
  */
 app.get(
   '/movies/:MovieTitle',
@@ -88,7 +92,9 @@ app.get(
  * Get data of a genre
  * Endpoint: /genres/[genre name]
  * HTTP method: GET
+ * @name getGenre
  * @returns JSON object holding data about a genre
+ * @requires passport
  */
 app.get(
   '/genres/:GenreName',
@@ -113,7 +119,9 @@ app.get(
  * Get data of a director
  * Endpoint: /directors/[name]
  * HTTP method: GET
+ * @name getDirector
  * @returns JSON object holding data about a director including bio, birth year, death year
+ * @requires passport
  */
 app.get(
   '/directors/:DirectorName',
@@ -138,7 +146,9 @@ app.get(
  * Get data of a single user
  * Endpoint: /users/[username]
  * HTTP method: GET
+ * @name getUser
  * @returns JSON object holding the data about the user
+ * @requires passport
  */
 app.get(
   '/users/:Username',
@@ -169,6 +179,7 @@ app.get(
  *  Email: String, (required)
  *  Birthday: Date
  * }
+ * @get addUser
  * @returns JSON object holding data about the new user including ID, username and mail
  */
 app.post(
@@ -230,7 +241,9 @@ app.post(
  *  Email: String, (required)
  *  Birthday: Date
  * }
+ * @name updateUser
  * @returns JSON object holding the data about the new user
+ * @requires passport
  */
 app.put(
   '/users/:Username',
@@ -263,7 +276,9 @@ app.put(
  * Add movie to favorite list of user
  * Endpoint: /users/[username]/movies/[movie ID]
  * HTTP method: PUT
+ * @name addMovieToFavorites
  * @returns JSON object holding the new data about the user
+ * @requires passport
  */
 app.put(
   '/users/:Username/movies/:MovieId',
@@ -285,12 +300,13 @@ app.put(
   }
 );
 
-// delete movie from favorite list of user
 /**
  * Remove movie from favorite list of user
  * Endpoint: /users/[username]/movies/[movie ID]
  * HTTP method: DELETE
+ * @name removeMovieFromFavorites
  * @returns JSON object holding the data about the user without the deleted movie
+ * @requires passport
  */
 app.delete(
   '/users/:Username/movies/:MovieId',
@@ -316,7 +332,9 @@ app.delete(
  * Delete user
  * Endpoint: /users/[username]
  * HTTP method: DELETE
+ * @name deleteUser
  * @returns {string} text message
+ * @requires passport
  */
 app.delete(
   '/users/:Username',

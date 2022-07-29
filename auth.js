@@ -21,6 +21,7 @@ let generateJWTToken = (user) => {
 // POST login
 /**
  * Handles Login
+ * @name handleLogin
  * @param router
  * @returns {object} user data
  * @requires passport
