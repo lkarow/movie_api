@@ -42,7 +42,12 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
 // logger setup
 app.use(morgan('common', { stream: accessLogStream }));
 
-// get all movies
+/**
+ * Get data of all movies
+ * Endpoint: /movies
+ * HTTP method: GET
+ * @returns JSON object holding data of all movies
+ */
 app.get(
   '/movies',
   passport.authenticate('jwt', { session: false }),
@@ -58,7 +63,12 @@ app.get(
   }
 );
 
-// get data about a single movie
+/**
+ * Get data of a single movie
+ * Endpoint: /movies/[movie ID]
+ * HTTP method: GET
+ * @returns JSON object holding data about a movie containing description, genre, director, image URL
+ */
 app.get(
   '/movies/:MovieTitle',
   passport.authenticate('jwt', { session: false }),
@@ -74,7 +84,12 @@ app.get(
   }
 );
 
-// get data about genre
+/**
+ * Get data of a genre
+ * Endpoint: /genres/[genre name]
+ * HTTP method: GET
+ * @returns JSON object holding data about a genre
+ */
 app.get(
   '/genres/:GenreName',
   passport.authenticate('jwt', { session: false }),
@@ -94,7 +109,12 @@ app.get(
   }
 );
 
-// get data about director
+/**
+ * Get data of a director
+ * Endpoint: /directors/[name]
+ * HTTP method: GET
+ * @returns JSON object holding data about a director including bio, birth year, death year
+ */
 app.get(
   '/directors/:DirectorName',
   passport.authenticate('jwt', { session: false }),
@@ -114,7 +134,12 @@ app.get(
   }
 );
 
-// get one user by username
+/**
+ * Get data of a single user
+ * Endpoint: /users/[username]
+ * HTTP method: GET
+ * @returns JSON object holding the data about the user
+ */
 app.get(
   '/users/:Username',
   passport.authenticate('jwt', { session: false }),
@@ -131,16 +156,21 @@ app.get(
   }
 );
 
-// add new user
-/* we'll expect JSON in this format
-{
-  ID: Integer,
-  Username: String, (required)
-  Password: String, (required)
-  Email: String, (required)
-  Birthday: Date
-}
-*/
+/**
+ * Add new user
+ * Endpoint: /users
+ * HTTP method: POST
+ * Request body data format: JSON object holding data about the new user including username and mail
+ * Expect JSON in this format:
+ * {
+ *  ID: Integer,
+ *  Username: String, (required)
+ *  Password: String, (required)
+ *  Email: String, (required)
+ *  Birthday: Date
+ * }
+ * @returns JSON object holding data about the new user including ID, username and mail
+ */
 app.post(
   '/users',
   // validation logic here for request
@@ -188,15 +218,20 @@ app.post(
   }
 );
 
-// update user's info by username
-/* we'll expect JSON in the format
-{
-  Username: String, (required)
-  Password: String, (required)
-  Email: String, (required)
-  Birthday: Date
-}
-*/
+/**
+ * Update user data
+ * Endpoint: /users/[username]
+ * HTTP method: PUT
+ * Request body data format: JSON object with the new user infos
+ * Expect JSON in this format:
+ * {
+ *  Username: String, (required)
+ *  Password: String, (required)
+ *  Email: String, (required)
+ *  Birthday: Date
+ * }
+ * @returns JSON object holding the data about the new user
+ */
 app.put(
   '/users/:Username',
   passport.authenticate('jwt', { session: false }),
@@ -224,7 +259,12 @@ app.put(
   }
 );
 
-// add movie to favorites list of user
+/**
+ * Add movie to favorite list of user
+ * Endpoint: /users/[username]/movies/[movie ID]
+ * HTTP method: PUT
+ * @returns JSON object holding the new data about the user
+ */
 app.put(
   '/users/:Username/movies/:MovieId',
   passport.authenticate('jwt', { session: false }),
@@ -246,6 +286,12 @@ app.put(
 );
 
 // delete movie from favorite list of user
+/**
+ * Remove movie from favorite list of user
+ * Endpoint: /users/[username]/movies/[movie ID]
+ * HTTP method: DELETE
+ * @returns JSON object holding the data about the user without the deleted movie
+ */
 app.delete(
   '/users/:Username/movies/:MovieId',
   passport.authenticate('jwt', { session: false }),
@@ -266,7 +312,12 @@ app.delete(
   }
 );
 
-// delete user by username
+/**
+ * Delete user
+ * Endpoint: /users/[username]
+ * HTTP method: DELETE
+ * @returns {string} text message
+ */
 app.delete(
   '/users/:Username',
   passport.authenticate('jwt', { session: false }),
