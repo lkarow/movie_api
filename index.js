@@ -27,6 +27,7 @@ app.use(bodyParser.json());
 
 const cors = require('cors');
 let allowedOrigins = [
+  'https://myflix-501fc4.netlify.app',
   'https://myflix-501fc4.netlify.app/',
   'http://localhost:1234',
 ];
