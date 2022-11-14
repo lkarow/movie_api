@@ -57,9 +57,12 @@ require('./passport');
 const { check, validationResult } = require('express-validator');
 
 // create a write stream in log.txt
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), {
-  flags: 'a',
-});
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, '/tmp/log.txt'),
+  {
+    flags: 'a',
+  }
+);
 
 // logger setup
 app.use(morgan('common', { stream: accessLogStream }));
