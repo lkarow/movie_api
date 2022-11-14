@@ -15,7 +15,7 @@ The endpoints of the API can be accessed with HTTP methods (POST, GET, PUT, and 
 
 ## Dependencies
 
-- [bcrypt](https://github.com/kelektiv/node.bcrypt.js)
+- [bcryptjs](https://github.com/dcodeIO/bcrypt.js)
 - [body-parser](https://github.com/expressjs/body-parser)
 - [CORS](https://github.com/expressjs/cors)
 - Express
